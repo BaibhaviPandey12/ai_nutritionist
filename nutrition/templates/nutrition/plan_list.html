@@ -1,0 +1,11 @@
+<!-- templates/nutrition/plan_list.html -->
+<h2>3-Day Meal Plans</h2>
+<ul>
+  {% for plan in plans %}
+    <li>
+      Day {{ plan.day }} — {{ plan.total_calories }} kcal
+      <a href="{% url 'nutrition:plan_detail' plan.id %}">View</a>
+    </li>
+  {% endfor %}
+</ul>
+<p><a href="{% url 'nutrition:dashboard' %}">Dashboard</a></p>

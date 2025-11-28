@@ -1,0 +1,27 @@
+<!-- templates/nutrition/dashboard.html -->
+<h2>{{ request.user.username }}'s Dashboard</h2>
+{% if profile %}
+  <p>Age: {{ profile.age }}, Sex: {{ profile.sex }}, Height: {{ profile.height_cm }} cm, Weight: {{ profile.weight_kg }} kg</p>
+  <p>Goal: {{ profile.goal }}, Activity: {{ profile.activity }}</p>
+{% else %}
+  <p>No profile yet. <a href="{% url 'nutrition:profile_edit' %}">Create profile</a></p>
+{% endif %}
+<p>Compliance: {{ compliance }}%</p>
+
+<h3>Recent Plans</h3>
+<ul>
+  {% for p in plans %}
+    <li>Day {{ p.day }} — {{ p.total_calories }} kcal — <a href="{% url 'nutrition:plan_detail' p.id %}">view</a></li>
+  {% empty %}
+    <li>No plans yet. <a href="{% url 'nutrition:generate_plan' %}">Generate one</a></li>
+  {% endfor %}
+</ul>
+
+<h3>Recent Logs</h3>
+<ul>
+  {% for l in logs %}
+    <li>{{ l.date }} — {{ l.meal }} — consumed: {{ l.consumed }}</li>
+  {% empty %}
+    <li>No logs yet.</li>
+  {% endfor %}
+</ul>

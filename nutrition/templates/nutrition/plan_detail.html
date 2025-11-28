@@ -1,0 +1,19 @@
+<!-- templates/nutrition/plan_detail.html -->
+<h2>Plan Day {{ plan.day }} — {{ plan.total_calories }} kcal</h2>
+<p>{{ plan.explanation }}</p>
+
+<ul>
+  {% for meal in meals %}
+    <li>
+      <strong>{{ meal.slot|capfirst }}: {{ meal.name }}</strong> — {{ meal.calories }} kcal
+      <div>{{ meal.recipe }}</div>
+      <form method="post" action="{% url 'nutrition:log_meal' plan.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="meal" value="{{ meal.id }}">
+        Consume? <input type="checkbox" name="consumed" value="on">
+        <button type="submit">Log</button>
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+<p><a href="{% url 'nutrition:generate_plan' %}">Regenerate</a> | <a href="{% url 'nutrition:dashboard' %}">Dashboard</a></p>

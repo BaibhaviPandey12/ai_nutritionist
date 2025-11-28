@@ -1,0 +1,9 @@
+<!-- templates/nutrition/profile_form.html -->
+<h2>Profile for {{ request.user.username }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save profile</button>
+</form>
+<p><a href="{% url 'nutrition:generate_plan' %}">Generate 3-day plan</a></p>
+<p><a href="{% url 'nutrition:dashboard' %}">Go to dashboard</a></p>
